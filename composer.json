@@ -1,0 +1,11 @@
+{
+    "name": "Ivanqi/KafkaScriptCommand",
+    "require": {
+        "php": ">=7"
+    },
+    "autoload": {
+        "psr-4": {
+            "KafkaScriptCommand\\": "src"
+        }
+    }
+}
