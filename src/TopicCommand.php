@@ -36,7 +36,7 @@ class TopicCommand
      * @param $partions paritions个数
      * @param $topicName topic名称
      */
-    public static function alterTopic(string $scriptPath, string $zkAddr, int $partions, string $topicName): strig
+    public static function alterTopic(string $scriptPath, string $zkAddr, int $partions, string $topicName): string
     {
         $execTemp = "%s --alter --zookeeper %s --partitions %d --topic %s";
         $execCommand = sprintf($execTemp, $scriptPath, $zkAddr, $partions, $topicName);
