@@ -4,19 +4,19 @@ namespace KafkaScriptCommand;
 class TopicCommand
 {
     public static $createTopicDesc = [
-        '使用语法: create_topic 脚本路径 zookeeper地址 paritions数量 topic名称 备份个数',
-        'usage: create_topic bin/kafka-topics.sh localhost:2181 1 test 1'
+        '使用语法: create_topic topic名称 paritions数量 备份个数 脚本路径 zookeeper地址',
+        'usage: create_topic test 1 1 bin/kafka-topics.sh localhost:2181'
     ];
     
     /**
      * 创建topic
+     * @param $topicName topic名称
+     * @param $partions partitions个数
+     * @param $replication 备份个数
      * @param $scriptPath 脚本地址
      * @param $zkAddr zookeeper 地址
-     * @param $partions partitions个数
-     * @param $topicName topic名称
-     * @param $replication 备份个数
      */
-    public static function createTopic(string $scriptPath, string $zkAddr, int $partitions, string $topicName, int $replication = 1): string
+    public static function createTopic(string $topicName, int $partitions , int $replication = 1, string $scriptPath, string $zkAddr): string
     {
         $execTemp = "%s --create --zookeeper %s --replication-factor %d --partitions %d --topic %s";
         $execCommand = sprintf($execTemp, $scriptPath, $zkAddr, $replication, $partitions, $topicName);
@@ -25,18 +25,18 @@ class TopicCommand
     }
 
     public static $alterTopicDesc = [
-        '使用语法: alter_topic 脚本路径 zookeeper地址 paritions数量 topic名称',
-        'usage: alter_topic bin/kafka-topics.sh localhost:2181 1 test'
+        '使用语法: alter_topic topic名称 paritions数量 脚本路径 zookeeper地址',
+        'usage: alter_topic test 1 bin/kafka-topics.sh localhost:2181'
     ];
 
     /**
      * 修改topic
+     * @param $topicName topic名称
+     * @param $partions paritions个数
      * @param $scriptPath 脚本地址
      * @param $zkAddr zookeeper地址
-     * @param $partions paritions个数
-     * @param $topicName topic名称
      */
-    public static function alterTopic(string $scriptPath, string $zkAddr, int $partions, string $topicName): string
+    public static function alterTopic(string $topicName, int $partions, string $scriptPath, string $zkAddr): string
     {
         $execTemp = "%s --alter --zookeeper %s --partitions %d --topic %s";
         $execCommand = sprintf($execTemp, $scriptPath, $zkAddr, $partions, $topicName);
@@ -45,17 +45,17 @@ class TopicCommand
     }
 
     public static $showTopicDesc = [
-        '使用语法: show_topic 脚本路径 zookeeper地址 topic名称',
-        'usage: show_topic bin/kafka-topics.sh localhost:2181 test[all]'
+        '使用语法: show_topic topic名称 脚本路径 zookeeper地址',
+        'usage: show_topic test[all] bin/kafka-topics.sh localhost:2181'
     ];
 
     /**
      * 查看topic
+     * @param $topicName topic名称
      * @param $scriptPath 脚本地址
      * @param $zkAddr zookeeper地址
-     * @param $topicName topic名称
      */
-    public static function showTopic(string $scriptPath, string $zkAddr, string $topicName): string
+    public static function showTopic(string $topicName, string $scriptPath, string $zkAddr): string
     {
         $execTemp = "%s --describe --zookeeper %s";
         if ($topicName != 'all') {

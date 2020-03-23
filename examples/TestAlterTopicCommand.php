@@ -4,10 +4,10 @@ require_once "../vendor/autoload.php";
 use KafkaScriptCommand\TopicCommand;
 
 
-$opt = getopt("s:z:p:t:");
+$opt = getopt("t:p:s:z:");
 if (empty($opt) || count($opt) < 4) {
     print_r(TopicCommand::$alterTopicDesc);
     exit;
 }
-$ret = TopicCommand::alterTopic($opt['s'], $opt['z'], (int) $opt['p'], $opt['t']);
+$ret = TopicCommand::alterTopic($opt['t'], (int) $opt['p'], $opt['s'], $opt['z']);
 print_r($ret);

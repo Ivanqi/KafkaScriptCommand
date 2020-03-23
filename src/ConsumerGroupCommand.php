@@ -21,15 +21,15 @@ class ConsumerGroupCommand {
 
     
     public static $showConsumeptionpDesc = [
-        '使用语法: show_consumeption 脚本路径 kafka地址 组名',
-        'usage: show_consumeption bin/kafka-consumer-groups.sh localhost:9092 test'
+        '使用语法: show_consumeption 组名 脚本路径 kafka地址',
+        'usage: show_consumeption test bin/kafka-consumer-groups.sh localhost:9092'
     ];
     /**
      * 查看消费组消费情况
      * @param $scriptPath 脚本地址
      * @param $kafkaAddr kafka地址
      */
-    public static function showConsumeption(string $scriptPath, string $kafkaAddr, string $groupName): string
+    public static function showConsumeption(string $groupName, string $scriptPath, string $kafkaAddr): string
     {
         $execTemp = '%s --bootstrap-server %s --describe --group %s';
         $execCommand = sprintf($execTemp, $scriptPath, $kafkaAddr, $groupName);
